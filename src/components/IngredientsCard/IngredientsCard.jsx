@@ -12,7 +12,7 @@ const IngredientsCard = ({current, img, price, name, id, clickCallback}) => {
         </div>
       }
       <div className={style.img}>
-        <img src={img} alt="" />
+        <img src={img} alt={name} />
       </div>
       <div className={style.price}>
         <span className="text text_type_digits-default">{price}</span>

@@ -1,6 +1,6 @@
-import Header from "./components/Header/Header.jsx";
-import Ingredients from "./components/Ingredients/Ingredients.jsx";
-import Assemble from "./components/Assemble/Assemble.jsx";
+import Header from "..//Header/Header.jsx";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients.jsx";
+import Assemble from "../BurgerConstructor/BurgerConstructor.jsx";
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
       <main className="main">
         <div className="container">
           <div className="main__row">
-            <Ingredients />
+            <BurgerIngredients />
             <Assemble />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import IngredientsCard from "../IngredientsCard/IngredientsCard.jsx";
 import style from "./IngredientsCategory.module.less";
 import Modal from "../Modal/Modal.jsx";
-import ModalInfo from "../ModalInfo/ModalInfo.jsx";
+import IngredientDetails from "../IngredientDetails/IngredientDetails.jsx";
 import {useState} from "react";
 import PropTypes from "prop-types";
 
@@ -32,7 +32,7 @@ const IngredientsCategory = ({slug, categoryName, products}) => {
                   active={isModalActive}
                   closeCallback={toggleInfoIngredient}
                 >
-                  <ModalInfo
+                  <IngredientDetails
                     {...product}
                   />
                 </Modal>

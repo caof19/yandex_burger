@@ -1,15 +1,15 @@
-import style from './ModalInfo.module.less';
+import style from './IngredientDetails.module.less';
 import PropTypes from "prop-types";
 
-const ModalInfo = ({image, name, proteins, calories, fat, carbohydrates}) => {
+const IngredientDetails = ({image, name, proteins, calories, fat, carbohydrates}) => {
   return (
     <div className={style.info}>
       <p className="text text_type_main-large">Детали ингредиента</p>
 
-      <div className="img" style={{textAlign: "center", marginBottom: "16px"}} >
-        <img src={image} alt="" />
+      <div className={style.img}>
+        <img src={image} alt={name} />
       </div>
-      <p className="text text_type_main-small" style={{textAlign: 'center'}}>
+      <p className={"text text_type_main-small "+style.name}>
         {name}
       </p>
       <div className={style.list}>
@@ -34,13 +34,13 @@ const ModalInfo = ({image, name, proteins, calories, fat, carbohydrates}) => {
   )
 }
 
-ModalInfo.propTypes = {
+IngredientDetails.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
-  proteins: PropTypes.string,
-  calories: PropTypes.string,
-  fat: PropTypes.string,
-  carbohydrates: PropTypes.string,
+  proteins: PropTypes.number,
+  calories: PropTypes.number,
+  fat: PropTypes.number,
+  carbohydrates: PropTypes.number,
 }
 
-export default ModalInfo;
+export default IngredientDetails;

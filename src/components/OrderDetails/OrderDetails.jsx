@@ -1,8 +1,8 @@
 import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './ModalOrder.module.less';
+import style from './OrderDetails.module.less';
 import PropTypes from "prop-types";
 
-const ModalOrder = ({orderId}) => {
+const OrderDetails = ({orderId}) => {
   return (
     <div className={style.order}>
       <p className="text text_type_digits-large">{orderId}</p>
@@ -16,7 +16,7 @@ const ModalOrder = ({orderId}) => {
   )
 }
 
-ModalOrder.propTypes = {
+OrderDetails.propTypes = {
   orderId: PropTypes.string.isRequired
 }
-export default ModalOrder;
+export default OrderDetails;

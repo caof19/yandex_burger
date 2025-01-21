@@ -1,10 +1,10 @@
 import {CurrencyIcon, Button, ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components'
 import AssembleCard from '../AssembleCard/AssembleCard.jsx'
-import style from './Assemble.module.less'
+import style from './BurgerConstructor.module.less'
 import AssembleTotal from "../AssembleTotal/AssembleTotal.jsx";
 import {useEffect, useState} from "react";
 
-const Assemble = () => {
+const BurgerConstructor = () => {
   const [cart, setCart] = useState([]);
   const [bun, setBun] = useState({});
 
@@ -105,4 +105,4 @@ const Assemble = () => {
   )
 }
 
-export default Assemble;
+export default BurgerConstructor;

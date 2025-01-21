@@ -5,15 +5,14 @@ import PropTypes from "prop-types";
 const Header = ({menu}) => {
 
   return (
-    <>
-      <header className={styles.header}>
-        <div className="container">
-          <div className={styles.row}>
-            <div className={styles.menu}>
-              {
-                menu.map((item, index) => {
-                  const iconType = item.isActive ? 'primary' : 'secondary';
-                  return (
+    <header className={styles.header}>
+      <div className="container">
+        <div className={styles.row}>
+          <div className={styles.menu}>
+            {
+              menu.map((item, index) => {
+                const iconType = item.isActive ? 'primary' : 'secondary';
+                return (
                   <div className={styles.item} key={index}>
                     {item.icon === 'burger' && <BurgerIcon type={iconType}/>}
                     {item.icon === 'list' && <ListIcon type={iconType}/>}
@@ -24,19 +23,19 @@ const Header = ({menu}) => {
                     </p>
                     <a href="" className="full"></a>
                   </div>
-                  )})
-              }
+                )
+              })
+            }
 
-            </div>
-            <Logo />
-            <div className={styles.item}>
-              <ProfileIcon type="secondary"/>
-              <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
-            </div>
+          </div>
+          <Logo/>
+          <div className={styles.item}>
+            <ProfileIcon type="secondary"/>
+            <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   )
 }
 Header.propTypes = {

@@ -1,10 +1,11 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
+import style from "./IngredientsNav.module.less";
 
 const IngredientsNav = ({menu, onClick}) => {
 
   return (
-    <div style={{display: 'flex', paddingBottom: 24}}>
+    <div className={style.nav}>
       {
         menu && Object.keys(menu).map(slug => (
           <Tab

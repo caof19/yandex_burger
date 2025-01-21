@@ -1,9 +1,9 @@
 import IngredientsNav from '../IngredientsNav/IngredientsNav.jsx';
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory.jsx";
-import styles from "./Ingredients.module.less";
+import styles from "./BurgerIngredients.module.less";
 import {useEffect, useRef, useState} from "react";
 
-const Ingredients = () => {
+const BurgerIngredients = () => {
 
   /* Перевод категорий */
   const categoryTranslate = {
@@ -28,12 +28,20 @@ const Ingredients = () => {
   /* запрос в апи для получения ингредиентов и составления меню из категорий */
   useEffect(() => {
     fetch('https://norma.nomoreparties.space/api/ingredients')
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      })
       .then(data => {
         if (data.success) {
           setIngredients(data.data);
+        } else {
+          throw new Error('Something went wrong!');
         }
       })
+      .catch(error => console.error(error));
   }, [])
 
   useEffect(() => {
@@ -149,4 +157,4 @@ const Ingredients = () => {
   )
 }
 
-export default Ingredients;
+export default BurgerIngredients;

@@ -1,7 +1,7 @@
 import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './AssembleTotal.module.less'
 import Modal from "../Modal/Modal.jsx";
-import ModalOrder from "../ModalOrder/ModalOrder.jsx";
+import OrderDetails from "../OrderDetails/OrderDetails.jsx";
 import {useState} from "react";
 import PropTypes from "prop-types";
 
@@ -25,7 +25,7 @@ const AssembleTotal = ({totalPrice}) => {
       {
         modalActive &&
         <Modal closeCallback={toggleOrderShow}>
-          <ModalOrder orderId={'034536'}/>
+          <OrderDetails orderId={'034536'}/>
         </Modal>
       }
     </div>
