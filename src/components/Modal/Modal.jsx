@@ -3,6 +3,7 @@ import style from './Modal.module.less'
 import {useEffect, useCallback} from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import ModalOverlay from "../ModalOverlay/ModalOverlay.jsx";
 
 const modalRoot = document.getElementById("modals");
 
@@ -29,7 +30,7 @@ const Modal = ({children, closeCallback}) => {
   return ReactDOM.createPortal(
     (
       <div className={style.modal}>
-        <div className={style.bg} onClick={closeCallback}></div>
+        <ModalOverlay closeCallback={closeCallback}/>
         <div className={style.body}>
           <div className={style.close} onClick={closeCallback}>
             <CloseIcon type="primary"/>

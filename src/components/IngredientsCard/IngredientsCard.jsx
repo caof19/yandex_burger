@@ -15,20 +15,22 @@ const IngredientsCard = (product) => {
 
 
   return (
-    <div className={style.item} onClick={toggleInfoIngredient}>
-      {current &&
-        <div className={"text text_type_digits-default " + style.current}>
-          {current}
+    <div className={style.item} >
+      <div className="wrapper" onClick={toggleInfoIngredient}>
+        {current &&
+          <div className={"text text_type_digits-default " + style.current}>
+            {current}
+          </div>
+        }
+        <div className={style.img}>
+          <img src={image} alt={name} />
         </div>
-      }
-      <div className={style.img}>
-        <img src={image} alt={name} />
+        <div className={style.price}>
+          <span className="text text_type_digits-default">{price}</span>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p className={"text text_type_main-default " + style.name}>{name}</p>
       </div>
-      <div className={style.price}>
-        <span className="text text_type_digits-default">{price}</span>
-        <CurrencyIcon type="primary" />
-      </div>
-      <p className={"text text_type_main-default " + style.name}>{name}</p>
       {
         isModalActive &&
         <Modal

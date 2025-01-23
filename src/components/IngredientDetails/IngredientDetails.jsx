@@ -1,13 +1,13 @@
 import style from './IngredientDetails.module.less';
 import PropTypes from "prop-types";
 
-const IngredientDetails = ({image, name, proteins, calories, fat, carbohydrates}) => {
+const IngredientDetails = ({image_large, name, proteins, calories, fat, carbohydrates}) => {
   return (
     <div className={style.info}>
       <p className="text text_type_main-large">Детали ингредиента</p>
 
       <div className={style.img}>
-        <img src={image} alt={name} />
+        <img src={image_large} alt={name} />
       </div>
       <p className={"text text_type_main-small "+style.name}>
         {name}
