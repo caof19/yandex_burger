@@ -1,0 +1,27 @@
+.header {
+  background-color: #1c1c21;
+  position: fixed;
+  width: 100%;
+  padding: 16px 0;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menu {
+  display: flex;
+  gap: 8px;
+}
+.item {
+  display: flex;
+  gap: 8px;
+  padding: 20px;
+  position: relative;
+  &:last-of-type {
+    justify-content: flex-end;
+  }
+}
+.row > * {
+  width: 33%;
+}
