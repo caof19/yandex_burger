@@ -1,16 +1,20 @@
 import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './AssembleTotal.module.less'
-import Modal from "../Modal/Modal.jsx";
-import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-import {useState} from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import {fetchOrder} from "../../services/OrderDetailsSlice.js";
 import PropTypes from "prop-types";
 
 const AssembleTotal = ({totalPrice}) => {
-
-  const [modalActive, setModalActive] = useState(false);
+  const dispatch = useDispatch();
+  const products = useSelector(state => state.BurgerConstructor.main);
+  const bun = useSelector(state => state.BurgerConstructor.bun);
 
   const toggleOrderShow = () => {
-    setModalActive(!modalActive);
+    const productIds = products.map(product => product._id);
+    productIds.unshift(bun._id)
+    productIds.push(bun._id)
+
+    dispatch(fetchOrder({"ingredients": productIds}))
   }
 
   return (
@@ -22,12 +26,6 @@ const AssembleTotal = ({totalPrice}) => {
       <Button htmlType="button" type="primary" size="large" onClick={toggleOrderShow}>
         Оформить заказ
       </Button>
-      {
-        modalActive &&
-        <Modal closeCallback={toggleOrderShow}>
-          <OrderDetails orderId={'034536'}/>
-        </Modal>
-      }
     </div>
   )
 }

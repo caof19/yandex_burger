@@ -1,22 +1,29 @@
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './Modal.module.less'
-import {useEffect, useCallback} from "react";
+import {useEffect} from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import ModalOverlay from "../ModalOverlay/ModalOverlay.jsx";
+import { useSelector, useDispatch } from 'react-redux';
+import {closeModal} from "../../services/IngredientDetailsSlice.js";
+import {closeOrderModal} from "../../services/OrderDetailsSlice.js";
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({children, closeCallback}) => {
+const Modal = ({children}) => {
 
-  /*
-    тут не совсем уверен что только так можно
-    Не придумал как можно избавиться от колбека на закрытие
-  */
+  const dispatch = useDispatch();
+  const {isActiveIngredients} = useSelector(state => state.IngredientsDetails.modalInfo);
+  const {isActiveOrderDetail} = useSelector(state => state.OrderDetails.modalInfo);
+
+  const close = () => {
+    dispatch(closeModal());
+    dispatch(closeOrderModal());
+  }
   useEffect(() => {
     const handleEscPress = (e) => {
-      if (e.key === 'Escape' && typeof closeCallback === 'function') {
-        closeCallback();
+      if (e.key === 'Escape' && typeof close === 'function') {
+        close();
       }
     };
 
@@ -25,14 +32,14 @@ const Modal = ({children, closeCallback}) => {
     return () => {
       document.removeEventListener('keydown', handleEscPress);
     };
-  }, [closeCallback]);
+  }, [close]);
 
   return ReactDOM.createPortal(
-    (
+    (isActiveIngredients || isActiveOrderDetail) && (
       <div className={style.modal}>
-        <ModalOverlay closeCallback={closeCallback}/>
+        <ModalOverlay closeCallback={close}/>
         <div className={style.body}>
-          <div className={style.close} onClick={closeCallback}>
+          <div className={style.close} onClick={close}>
             <CloseIcon type="primary"/>
           </div>
           {children}
@@ -45,6 +52,5 @@ const Modal = ({children, closeCallback}) => {
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
-  closeCallback: PropTypes.func.isRequired,
 }
 export default Modal;

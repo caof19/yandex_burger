@@ -1,8 +1,10 @@
 import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './OrderDetails.module.less';
-import PropTypes from "prop-types";
+import {useSelector} from 'react-redux'
 
-const OrderDetails = ({orderId}) => {
+const OrderDetails = () => {
+  const orderId = useSelector(state => state.OrderDetails.modalInfo.orderNum);
+
   return (
     <div className={style.order}>
       <p className="text text_type_digits-large">{orderId}</p>
@@ -14,9 +16,5 @@ const OrderDetails = ({orderId}) => {
       <p className="text text_type_main-small text_color_inactive">Дождитесь готовности на орбитальной станции</p>
     </div>
   )
-}
-
-OrderDetails.propTypes = {
-  orderId: PropTypes.string.isRequired
 }
 export default OrderDetails;

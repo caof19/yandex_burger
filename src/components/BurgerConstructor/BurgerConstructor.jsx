@@ -3,50 +3,46 @@ import AssembleCard from '../AssembleCard/AssembleCard.jsx'
 import style from './BurgerConstructor.module.less'
 import AssembleTotal from "../AssembleTotal/AssembleTotal.jsx";
 import {useEffect, useState} from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
+import {addIngredientToMenu, changeBun} from "../../services/BurgerConstructorSlicer.js";
+import {useIngredient, resetIngredient} from "../../services/IngredientsSlicer.js";
+
 
 const BurgerConstructor = () => {
-  const [cart, setCart] = useState([]);
-  const [bun, setBun] = useState({});
+  const bun = useSelector(state => state.BurgerConstructor.bun);
+  const ingredients = useSelector(state => state.BurgerConstructor.main);
+  const dispatch = useDispatch();
 
-  const [main, setMain] = useState([])
+
+  const [cart, setCart] = useState([]);
+
   const [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
-    setMain([
-      {
-        _id: "643d69a5c3f7b9001cfa0941",
-        name: "Биокотлета из марсианской Магнолии",
-        type: "main",
-        proteins: 420,
-        fat: 142,
-        carbohydrates: 242,
-        calories: 4242,
-        price: 424,
-        image: "https://code.s3.yandex.net/react/code/meat-01.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/meat-01-large.png",
-        __v: 0
-      }
-    ])
-
-    setBun(
-      {
-      _id: "643d69a5c3f7b9001cfa093c",
-      name: "Краторная булка N-200i",
-      type: "bun",
-      proteins: 80,
-      fat: 24,
-      carbohydrates: 53,
-      calories: 420,
-      price: 1255,
-      image: "https://code.s3.yandex.net/react/code/bun-02.png",
-      image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-      image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-      __v: 0
-    })
-  }, []);
+  const [, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop(item) {
+          if(item.type === 'bun') {
+            dispatch(changeBun({bun: item}))
+            if(bun._id !== item._id) {
+              dispatch(resetIngredient({id: bun._id}))
+              dispatch(useIngredient({id: item._id}))
+            }
+          } else {
+            dispatch(addIngredientToMenu({item}))
+            if (bun._id !== undefined) {
+              dispatch(useIngredient({id: item._id}))
+            } else {
+              alert('Сначала добавьте булочку!')
+            }
+          }
+        },
+    });
 
   useEffect(() => {
+    if(bun._id === undefined) {
+      return;
+    }
     let topBun = {...bun};
     let bothBun = {...bun};
 
@@ -56,17 +52,13 @@ const BurgerConstructor = () => {
     bothBun.locked = true;
     bothBun.type = 'bottom';
 
-    main.map((item, index) => {
-      item.mainOrder = index;
-      return item;
-    })
     setCart([
       {...topBun},
-      ...main,
+        ...ingredients,
       {...bothBun}
     ])
 
-  }, [bun, main]);
+  }, [bun, ingredients]);
 
   useEffect(() => {
     let total = cart.reduce((acc, cur) => {
@@ -76,27 +68,20 @@ const BurgerConstructor = () => {
     setTotalPrice(total);
   }, [cart]);
 
-  const deleteFromCart = (id) => {
-    let mainCart = main.filter(item => item.mainOrder !== id);
-
-
-    setMain(mainCart);
-
-    return false;
-  }
-
   return (
-    <div className={style.assemble}>
+    <div className={style.assemble} ref={dropTarget}>
       <div className={style.list}>
-        {cart.map((item, index) => (
+        {cart.length > 0 && cart.map((item, index) => (
             <AssembleCard
               type={item.type}
               isLocked={item.locked}
               text={item.name}
               price={item.price}
               thumbnail={item.image_mobile}
-              deleteProduct={() => deleteFromCart(item.mainOrder)}
               key={index}
+              ingredientsIndex={index - 1}
+              order={item.mainOrder}
+              id={item._id}
             />
         ))}
       </div>

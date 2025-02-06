@@ -1,8 +1,16 @@
 import Header from "..//Header/Header.jsx";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients.jsx";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor.jsx";
+import IngredientDetails from "../IngredientDetails/IngredientDetails.jsx";
+import Modal from "../Modal/Modal.jsx";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import OrderDetails from "../OrderDetails/OrderDetails.jsx";
+import {useSelector} from 'react-redux'
 
 function App() {
+  const {isActiveIngredients} = useSelector(state => state.IngredientsDetails.modalInfo);
+  const {isActiveOrderDetail} = useSelector(state => state.OrderDetails.modalInfo);
 
   return (
     <>
@@ -25,8 +33,20 @@ function App() {
       <main className="main">
         <div className="container">
           <div className="main__row">
-            <BurgerIngredients />
-            <BurgerConstructor />
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </DndProvider>
+            { isActiveIngredients &&
+              <Modal>
+                <IngredientDetails />
+              </Modal>
+            }
+            { isActiveOrderDetail &&
+              <Modal>
+                <OrderDetails/>
+              </Modal>
+            }
           </div>
         </div>
       </main>
