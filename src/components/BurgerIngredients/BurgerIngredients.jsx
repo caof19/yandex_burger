@@ -3,7 +3,7 @@ import IngredientsCategory from "../IngredientsCategory/IngredientsCategory.jsx"
 import styles from "./BurgerIngredients.module.less";
 import {useEffect, useRef, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import {fetchIngredients} from "../../services/IngredientsSlicer.js";
+import {fetchIngredients} from "../../services/IngredientsSlice.js";
 
 const BurgerIngredients = () => {
 

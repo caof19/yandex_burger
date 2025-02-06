@@ -5,8 +5,8 @@ import AssembleTotal from "../AssembleTotal/AssembleTotal.jsx";
 import {useEffect, useState} from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
-import {addIngredientToMenu, changeBun} from "../../services/BurgerConstructorSlicer.js";
-import {useIngredient, resetIngredient} from "../../services/IngredientsSlicer.js";
+import {addIngredientToMenu, changeBun} from "../../services/BurgerConstructorSlice.js";
+import {useIngredient, resetIngredient} from "../../services/IngredientsSlice.js";
 
 
 const BurgerConstructor = () => {

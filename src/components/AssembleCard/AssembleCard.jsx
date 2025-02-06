@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {
   removeIngredient,
   reorderIngredients
-} from "../../services/BurgerConstructorSlicer.js";
-import {unUseIngredient, useIngredient} from "../../services/IngredientsSlicer.js";
+} from "../../services/BurgerConstructorSlice.js";
+import {unUseIngredient, useIngredient} from "../../services/IngredientsSlice.js";
 import { useDispatch } from 'react-redux'
 import { useDrag, useDrop } from "react-dnd";
 
