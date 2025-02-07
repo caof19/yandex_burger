@@ -10,20 +10,13 @@ import {closeOrderModal} from "../../services/OrderDetailsSlice.js";
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({children}) => {
+const Modal = ({children, onCloseModal}) => {
 
-  const dispatch = useDispatch();
-  const {isActiveIngredients} = useSelector(state => state.IngredientsDetails.modalInfo);
-  const {isActiveOrderDetail} = useSelector(state => state.OrderDetails.modalInfo);
 
-  const close = () => {
-    dispatch(closeModal());
-    dispatch(closeOrderModal());
-  }
   useEffect(() => {
     const handleEscPress = (e) => {
       if (e.key === 'Escape' && typeof close === 'function') {
-        close();
+        onCloseModal();
       }
     };
 
@@ -32,25 +25,25 @@ const Modal = ({children}) => {
     return () => {
       document.removeEventListener('keydown', handleEscPress);
     };
-  }, [close]);
+  }, [onCloseModal]);
 
   return ReactDOM.createPortal(
-    (isActiveIngredients || isActiveOrderDetail) && (
       <div className={style.modal}>
-        <ModalOverlay closeCallback={close}/>
+        <ModalOverlay closeCallback={onCloseModal}/>
         <div className={style.body}>
-          <div className={style.close} onClick={close}>
+          <div className={style.close} onClick={onCloseModal}>
             <CloseIcon type="primary"/>
           </div>
           {children}
         </div>
       </div>
-    ),
+    ,
     modalRoot
   )
 }
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
 }
 export default Modal;

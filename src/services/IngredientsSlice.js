@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import {BASE_URL} from "../utils/const.js";
+import {checkResponse} from "../utils/network.js";
 
 export const IngredientsSlice = createSlice({
   name: 'Ingredients',
@@ -37,6 +39,13 @@ export const IngredientsSlice = createSlice({
       if(product) {
           product.current = 0;
       }
+    },
+    resetAllIngredients: (state, action) => {
+      const product = state.ingredients.map(ingredient => {
+        ingredient.current = 0
+
+        return ingredient;
+      });
     }
   },
   extraReducers: (builder) => {
@@ -64,17 +73,14 @@ export const fetchIngredients = createAsyncThunk(
   'Ingredients/fetchIngredients',
   async (dispatch, {rejectWithValue}) => {
     try {
-      const response = await fetch("https://norma.nomoreparties.space/api/ingredients");
+      return await fetch(BASE_URL+"/ingredients").then(checkResponse);
 
-      if (!response.ok) throw new Error("Ошибка загрузки данных");
-
-      return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 )
 
-export const {useIngredient, unUseIngredient, resetIngredient} = IngredientsSlice.actions;
+export const {useIngredient, unUseIngredient, resetIngredient, resetAllIngredients} = IngredientsSlice.actions;
 
 export default IngredientsSlice.reducer;

@@ -3,6 +3,8 @@ import style from './AssembleTotal.module.less'
 import { useDispatch, useSelector } from 'react-redux';
 import {fetchOrder} from "../../services/OrderDetailsSlice.js";
 import PropTypes from "prop-types";
+import {clearCart} from "../../services/BurgerConstructorSlice.js";
+import {resetAllIngredients} from "../../services/IngredientsSlice.js";
 
 const AssembleTotal = ({totalPrice}) => {
   const dispatch = useDispatch();
@@ -14,7 +16,11 @@ const AssembleTotal = ({totalPrice}) => {
     productIds.unshift(bun._id)
     productIds.push(bun._id)
 
-    dispatch(fetchOrder({"ingredients": productIds}))
+    if(bun._id !== undefined) {
+      dispatch(fetchOrder({"ingredients": productIds}));
+      dispatch(clearCart());
+      dispatch(resetAllIngredients());
+    }
   }
 
   return (

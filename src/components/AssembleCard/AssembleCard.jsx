@@ -5,7 +5,7 @@ import {
   removeIngredient,
   reorderIngredients
 } from "../../services/BurgerConstructorSlice.js";
-import {unUseIngredient, useIngredient} from "../../services/IngredientsSlice.js";
+import {unUseIngredient} from "../../services/IngredientsSlice.js";
 import { useDispatch } from 'react-redux'
 import { useDrag, useDrop } from "react-dnd";
 
@@ -54,7 +54,7 @@ const AssembleCard = (props) => {
         }
         <ConstructorElement
           {...props}
-          handleClose={() => deleteFromCart(props.order)}
+          handleClose={() => deleteFromCart(props.mainId)}
         />
       </div>
     </div>
@@ -67,7 +67,7 @@ AssembleCard.propTypes = {
   price: PropTypes.number,
   type: PropTypes.oneOf(['top', 'bottom', 'main']),
   isLocked: PropTypes.bool,
-  order: PropTypes.number,
+  mainId: PropTypes.string,
   ingredientsIndex: PropTypes.number,
   id: PropTypes.string,
 }

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 export const BurgerConstructorSlice = createSlice({
   name: 'BurgerConstructor',
@@ -10,33 +10,46 @@ export const BurgerConstructorSlice = createSlice({
     changeBun: (state, action) => {
       state.bun = action.payload.bun;
     },
-    addIngredientToMenu: (state, action) => {
-      const {item:product} = action.payload;
+    addIngredientToMenu: {
+      reducer: (state, action) => {
+        const {product} = action.payload;
 
-      if (!state.bun || Object.keys(state.bun).length === 0) {
-        return;
+        if (!state.bun || Object.keys(state.bun).length === 0) {
+          return;
+        }
+
+        state.main.push(product);
+      },
+      prepare: ({item}) => {
+        return {
+          payload: {
+            product: {
+              ...item,
+              mainId: nanoid(),
+              type: 'main',
+            }
+          }
+        };
       }
-
-      state.main.push({
-        ...product,
-        mainOrder: state.main.length,
-        type: 'main',
-      });
     },
     removeIngredient: (state, action) => {
       const { id } = action.payload;
 
-      state.main = state.main.filter(ingredient => ingredient.mainOrder !== id)
+      state.main = state.main.filter(ingredient => ingredient.mainId !== id)
     },
     reorderIngredients: (state, action) => {
       const { id, replaceToId } = action.payload;
 
       const element = state.main.splice(id, 1)[0];
       state.main.splice(replaceToId, 0, element);
+    },
+    clearCart: (state) => {
+      state.main = [];
+      state.bun = {};
     }
   }
 })
 
-export const {changeBun, addIngredientToMenu, removeIngredient, reorderIngredients} = BurgerConstructorSlice.actions;
+export const {changeBun, addIngredientToMenu, removeIngredient, reorderIngredients, clearCart} = BurgerConstructorSlice.actions;
 
 export default BurgerConstructorSlice.reducer;

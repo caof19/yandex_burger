@@ -6,11 +6,19 @@ import Modal from "../Modal/Modal.jsx";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import {closeModal} from "../../services/IngredientDetailsSlice.js";
+import {closeOrderModal} from "../../services/OrderDetailsSlice.js";
 
 function App() {
   const {isActiveIngredients} = useSelector(state => state.IngredientsDetails.modalInfo);
   const {isActiveOrderDetail} = useSelector(state => state.OrderDetails.modalInfo);
+  const dispatch = useDispatch();
+
+  const turnOffModal = () => {
+    dispatch(closeModal());
+    dispatch(closeOrderModal());
+  }
 
   return (
     <>
@@ -38,12 +46,12 @@ function App() {
               <BurgerConstructor />
             </DndProvider>
             { isActiveIngredients &&
-              <Modal>
+              <Modal onCloseModal={turnOffModal}>
                 <IngredientDetails />
               </Modal>
             }
             { isActiveOrderDetail &&
-              <Modal>
+              <Modal onCloseModal={turnOffModal}>
                 <OrderDetails/>
               </Modal>
             }

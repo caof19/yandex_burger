@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import {BASE_URL} from "../utils/const.js";
+import {checkResponse} from "../utils/network.js";
 
 
 const initialState = {
@@ -26,6 +28,8 @@ export const OrderDetailsSlice = createSlice({
           isActiveOrderDetail: true,
           orderNum
         }
+
+
       })
       .addCase(fetchOrder.rejected, (state, action) => {
 
@@ -37,17 +41,14 @@ export const fetchOrder = createAsyncThunk(
   'OrderDetails/fetchOrder',
   async (orderData, {rejectWithValue}) => {
     try {
-      const response = await fetch("https://norma.nomoreparties.space/api/orders", {
+      return await fetch(BASE_URL+"/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(orderData),
-      });
+      }).then(checkResponse);
 
-      if (!response.ok) throw new Error("Ошибка загрузки данных");
-
-      return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
     }

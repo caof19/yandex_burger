@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import {addIngredientToMenu, changeBun} from "../../services/BurgerConstructorSlice.js";
 import {useIngredient, resetIngredient} from "../../services/IngredientsSlice.js";
+import {nanoid} from "@reduxjs/toolkit";
 
 
 const BurgerConstructor = () => {
@@ -41,6 +42,7 @@ const BurgerConstructor = () => {
 
   useEffect(() => {
     if(bun._id === undefined) {
+      setCart([])
       return;
     }
     let topBun = {...bun};
@@ -48,9 +50,11 @@ const BurgerConstructor = () => {
 
     topBun.locked = true;
     topBun.type = 'top';
+    topBun.mainId = nanoid();
 
     bothBun.locked = true;
     bothBun.type = 'bottom';
+    bothBun.mainId = nanoid();
 
     setCart([
       {...topBun},
@@ -78,9 +82,9 @@ const BurgerConstructor = () => {
               text={item.name}
               price={item.price}
               thumbnail={item.image_mobile}
-              key={index}
+              key={item.mainId}
               ingredientsIndex={index - 1}
-              order={item.mainOrder}
+              mainId={item.mainId}
               id={item._id}
             />
         ))}
