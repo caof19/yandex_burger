@@ -1,6 +1,16 @@
 .item {
   position: relative;
   padding-left: 32px;
+  border: 1px solid transparent;
+  &_hover {
+    opacity: .5;
+  }
+  &_drag {
+    border-color: #00b300;
+  }
+  svg {
+    min-width: 24px;
+  }
 }
 .icon {
   position: absolute;

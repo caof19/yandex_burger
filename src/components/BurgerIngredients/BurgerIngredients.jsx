@@ -2,8 +2,12 @@ import IngredientsNav from '../IngredientsNav/IngredientsNav.jsx';
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory.jsx";
 import styles from "./BurgerIngredients.module.less";
 import {useEffect, useRef, useState} from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import {fetchIngredients} from "../../services/IngredientsSlice.js";
 
 const BurgerIngredients = () => {
+
+  const dispatch = useDispatch();
 
   /* Перевод категорий */
   const categoryTranslate = {
@@ -15,33 +19,13 @@ const BurgerIngredients = () => {
   /* состояние для ингредиентов */
   /* состояние, потому что нужно отслеживать добавленные ингредиенты */
 
-  /*
-  *
-  * Вообще тут вопрос, так можно что у меня одно состояние зависит от другого состояния
-  * по сути они содержат одинаковые данные, но в разном формате. Есть другие варианты реализации?
-  *
-  * */
-  const [ingredients, setIngredients] = useState([]);
+  const {ingredients} = useSelector(state => state.Ingredients)
   const [formatedIngredients, setFormatedIngredients] = useState({});
   const scrollableContainer = useRef(null);
 
   /* запрос в апи для получения ингредиентов и составления меню из категорий */
   useEffect(() => {
-    fetch('https://norma.nomoreparties.space/api/ingredients')
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then(data => {
-        if (data.success) {
-          setIngredients(data.data);
-        } else {
-          throw new Error('Something went wrong!');
-        }
-      })
-      .catch(error => console.error(error));
+    dispatch(fetchIngredients());
   }, [])
 
   useEffect(() => {
@@ -121,16 +105,6 @@ const BurgerIngredients = () => {
     setActiveCategory(activeCategory)
   }
 
-  // const openMoreInfo = productId => {
-  //   setIngredients(prevState =>
-  //     prevState.map(ingredient =>
-  //       ingredient._id === productId ?
-  //         {...ingredient, openModal: true} :
-  //         ingredient
-  //     )
-  //   )
-  // }
-
 
   return (
     <div className="ingredients">
@@ -148,7 +122,6 @@ const BurgerIngredients = () => {
               categoryName={categoryTranslate[slug]}
               products={formatedIngredients[slug].items}
               key={'cat_'+index}
-              // clickCallback={openMoreInfo}
             />
           ))
         }
