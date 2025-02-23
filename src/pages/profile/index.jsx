@@ -114,6 +114,8 @@ const Profile = () => {
     const result = await dispatch(fetchExit());
 
     if(fetchExit.fulfilled.match(result)) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       navigate(PAGE_URI.login)
     }
   }

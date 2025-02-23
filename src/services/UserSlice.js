@@ -29,9 +29,6 @@ export const UserSlice = createSlice({
       .addCase(fetchWithTokenRefresh.fulfilled, setupUser)
       .addCase(fetchExit.fulfilled, (state, action) => {
         state.info = initialState.info;
-
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
       })
   },
 })
@@ -78,6 +75,13 @@ export const fetchWithTokenRefresh = createAsyncThunk(
           },
           body: JSON.stringify({  token: localStorage.getItem('refreshToken')})
         }).then(checkResponse).then(resp => {
+          /*
+          * не знаю, считается ли это редьюсером, но отсюда вроде нет вариантов вынести
+          * потому что обновление токенов должно происходить после окончания запроса
+          * Потому что результат его работы использует следующий запрос
+          * А от того что я это вынесу в функцию, которая будет лежать в другом файле
+          * разницы то нет, но могу ошибаться
+          */
           localStorage.setItem('accessToken', resp.accessToken);
           localStorage.setItem('refreshToken', resp.refreshToken);
         });
