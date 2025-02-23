@@ -1,6 +1,8 @@
 import styles from './Header.module.less';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {NavLink} from "react-router-dom";
+import {PAGE_URI} from "../../utils/const.js";
 
 const Header = ({menu}) => {
 
@@ -13,7 +15,7 @@ const Header = ({menu}) => {
               menu.map((item, index) => {
                 const iconType = item.isActive ? 'primary' : 'secondary';
                 return (
-                  <div className={styles.item} key={index}>
+                  <NavLink to={item.href} className={({isActive}) => isActive ? styles.item_active + ' ' +styles.item : styles.item}key={index}>
                     {item.icon === 'burger' && <BurgerIcon type={iconType}/>}
                     {item.icon === 'list' && <ListIcon type={iconType}/>}
                     <p className={"text text_type_main-default " + (
@@ -21,18 +23,17 @@ const Header = ({menu}) => {
                     )}>
                       {item.name}
                     </p>
-                    <a href="" className="full"></a>
-                  </div>
+                  </NavLink>
                 )
               })
             }
 
           </div>
           <Logo/>
-          <div className={styles.item}>
+          <NavLink to={PAGE_URI.profile} className={({isActive}) => isActive ? styles.item_active + ' ' +styles.item : styles.item}>
             <ProfileIcon type="secondary"/>
-            <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
-          </div>
+            <p className="text text_type_main-default">Личный кабинет</p>
+          </NavLink>
         </div>
       </div>
     </header>

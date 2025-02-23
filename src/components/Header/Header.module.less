@@ -3,6 +3,7 @@
   position: fixed;
   width: 100%;
   padding: 16px 0;
+  z-index: 11;
 }
 .row {
   display: flex;
@@ -18,10 +19,33 @@
   gap: 8px;
   padding: 20px;
   position: relative;
+  color: #8585ad;
+  text-decoration: none;
+  svg {
+    fill: #8585ad;
+  }
+  &_active {
+    color: #ffffff;
+    text-decoration: none;
+    svg {
+      fill: #fff;
+    }
+  }
   &:last-of-type {
     justify-content: flex-end;
   }
 }
 .row > * {
   width: 33%;
+}
+.menu_item {
+  text-decoration: none;
+  color: #8585ad;
+  a {
+    color: #8585ad;
+  }
+}
+.menu_item_active {
+  text-decoration: none;
+  color: #ffffff;
 }

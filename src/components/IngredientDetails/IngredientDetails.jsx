@@ -1,9 +1,34 @@
 import style from './IngredientDetails.module.less';
-import PropTypes from "prop-types";
 import { useSelector } from 'react-redux';
+import {useEffect} from "react";
+import {fetchIngredients} from "../../services/IngredientsSlice.js";
+import {useDispatch} from "react-redux";
+import {loadData} from "../../services/IngredientDetailsSlice.js";
+import {useLocation, useParams} from "react-router-dom";
 
 const IngredientDetails = () => {
   const {img, name, info} = useSelector(state => state.IngredientsDetails.modalInfo)
+  const {ingredients} = useSelector(state => state.Ingredients);
+  const {id} = useParams();
+  const location = useLocation();
+  const showIngredientInModal = !!(location.state && location.state.showInModal);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(!showIngredientInModal && !ingredients.length) {
+      dispatch(fetchIngredients());
+    }
+  }, []);
+
+  useEffect(() => {
+    const currentIngredient = ingredients.find(item => item._id === id);
+
+    if(currentIngredient && !showIngredientInModal) {
+      dispatch(loadData(currentIngredient));
+    }
+  }, [ingredients]);
+
 
   return (
     <div className={style.info}>
