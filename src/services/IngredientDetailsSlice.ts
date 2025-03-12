@@ -33,11 +33,11 @@ export const IngredientDetailsSlice = createSlice({
                 }
             }
         },
-        closeModal: (state, action) => {
+        closeModal: (state) => {
             state.modalInfo = initialState.modalInfo
         },
         loadData: (state, action) => {
-            const {image_large: img, name, calories, proteins, fat, carbohydrates, _id: id} = action.payload;
+            const {image_large: img, name, calories, proteins, fat, carbohydrates} = action.payload;
             state.modalInfo = {
                 isActiveIngredients: false,
                 img,

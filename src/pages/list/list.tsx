@@ -32,11 +32,11 @@ function List() {
   }, [ingredients])
 
   const turnOffModal = () => {
-    dispatch(closeModal(''));
+    dispatch(closeModal());
     navigate(-1);
   }
   const turnOffModalOrder = () => {
-    dispatch(closeOrderModal(''));
+    dispatch(closeOrderModal());
   }
 
   return (

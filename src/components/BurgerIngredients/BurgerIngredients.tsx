@@ -2,10 +2,10 @@ import IngredientsNav from '../IngredientsNav/IngredientsNav';
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 import styles from "./BurgerIngredients.module.less";
 import {useEffect, useRef, useState} from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {fetchIngredients} from "../../services/IngredientsSlice";
 import {RootState, useAppDispatch} from "../../services/store";
-import {TBurgerIngredients, TProduct} from "../../utils/types";
+import {TBurgerIngredients} from "../../utils/types";
 
 const BurgerIngredients = () => {
 

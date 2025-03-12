@@ -49,8 +49,6 @@ const ForgotPassword = () => {
             size={'default'}
             extraClass="mb-6"
             required={true}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
           <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
             Восстановить

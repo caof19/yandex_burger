@@ -1,4 +1,4 @@
-import {createSlice, nanoid, PayloadAction, PrepareAction} from '@reduxjs/toolkit'
+import {createSlice, nanoid, PayloadAction} from '@reduxjs/toolkit'
 import {TBurgerConstructor, TProduct} from "../utils/types";
 
 

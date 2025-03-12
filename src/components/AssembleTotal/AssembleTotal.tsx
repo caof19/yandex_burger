@@ -34,7 +34,7 @@ const AssembleTotal: FC<{totalPrice:number}> = ({totalPrice}) => {
     if(bun._id !== '') {
       dispatch(fetchOrder({"ingredients": productIds}));
       dispatch(clearCart());
-      dispatch(resetAllIngredients(''));
+      dispatch(resetAllIngredients());
     } else {
       alert('Бургер не собран!');
     }

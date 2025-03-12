@@ -45,8 +45,8 @@ export const IngredientsSlice = createSlice({
                 product.current = 0;
             }
         },
-        resetAllIngredients: (state, action) => {
-            const product = state.ingredients.map(ingredient => {
+        resetAllIngredients: (state) => {
+            state.ingredients.map(ingredient => {
                 ingredient.current = 0
 
                 return ingredient;
@@ -67,7 +67,7 @@ export const IngredientsSlice = createSlice({
                 state.ingredients = action.payload.data;
             })
             // Вызывается в случае ошибки
-            .addCase(fetchIngredients.rejected, (state, action) => {
+            .addCase(fetchIngredients.rejected, (state) => {
                 state.isLoad = false;
                 state.isError = true;
             });
@@ -76,7 +76,7 @@ export const IngredientsSlice = createSlice({
 
 export const fetchIngredients = createAsyncThunk(
     'Ingredients/fetchIngredients',
-    async (dispatch, {rejectWithValue}) => {
+    async (_, {rejectWithValue}) => {
         try {
             return await fetch(BASE_URL + "/ingredients").then(checkResponse);
 

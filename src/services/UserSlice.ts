@@ -28,7 +28,7 @@ export const UserSlice = createSlice({
         builder
             .addCase(fetchUnAuth.fulfilled, setupUser)
             .addCase(fetchWithTokenRefresh.fulfilled, setupUser)
-            .addCase(fetchExit.fulfilled, (state, action) => {
+            .addCase(fetchExit.fulfilled, (state) => {
                 state.info = initialState.info;
             })
     },

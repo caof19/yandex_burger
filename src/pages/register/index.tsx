@@ -61,8 +61,6 @@ function Register() {
             size={'default'}
             extraClass="mb-6"
             required={true}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
           <Input
             type={'email'}
@@ -76,8 +74,6 @@ function Register() {
             size={'default'}
             extraClass="mb-6"
             required={true}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
           <InputPassword
             value={password}

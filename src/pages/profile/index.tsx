@@ -4,7 +4,7 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {useEffect, useRef, useState, FormEvent, RefObject, LegacyRef} from "react";
 import style from './index.module.less'
 import {useSelector} from "react-redux";
-import {fetchExit, fetchUnAuth, fetchWithTokenRefresh} from "../../services/UserSlice";
+import {fetchExit, fetchWithTokenRefresh} from "../../services/UserSlice";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import {RootState, useAppDispatch} from "../../services/store";
 import {UserData, UserDataField} from "../../utils/types";
@@ -172,9 +172,7 @@ const Profile = () => {
                 required={true}
                 icon={'EditIcon'}
                 disabled={userData.email.disabled}
-                onIconClick={e => changeAccess('email', inputEmailRef)}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+                onIconClick={() => changeAccess('email', inputEmailRef)}
               />
               <Input
                 type={'text'}
@@ -190,9 +188,7 @@ const Profile = () => {
                 required={true}
                 icon={'EditIcon'}
                 disabled={userData.name.disabled}
-                onIconClick={e => changeAccess('name', inputLoginRef)}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+                onIconClick={() => changeAccess('name', inputLoginRef)}
               />
               <Input
                 type={'password'}
@@ -208,9 +204,7 @@ const Profile = () => {
                 required={true}
                 icon={'EditIcon'}
                 disabled={userData.password.disabled}
-                onIconClick={e => changeAccess('password', inputPassRef)}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+                onIconClick={() => changeAccess('password', inputPassRef)}
               />
               { haveChange && <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
                 Сохранить

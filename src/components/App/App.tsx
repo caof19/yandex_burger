@@ -1,4 +1,4 @@
-import {Route, Routes, BrowserRouter, useLocation, Location} from "react-router-dom";
+import {Route, Routes, useLocation, Location} from "react-router-dom";
 import {PAGE_URI} from "../../utils/const";
 import ProtectedRouteElement from "../../HOC/ProtectedRouteElement";
 import Register from "../../pages/register";

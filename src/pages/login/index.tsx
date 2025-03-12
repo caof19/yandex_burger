@@ -64,8 +64,6 @@ export default function Login() {
             size={'default'}
             extraClass="mb-6"
             required={true}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
           <InputPassword
             value={password}

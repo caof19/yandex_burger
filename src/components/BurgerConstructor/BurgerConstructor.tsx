@@ -1,4 +1,3 @@
-import {CurrencyIcon, Button, ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components'
 import AssembleCard from '../AssembleCard/AssembleCard'
 import style from './BurgerConstructor.module.less'
 import AssembleTotal from "../AssembleTotal/AssembleTotal";

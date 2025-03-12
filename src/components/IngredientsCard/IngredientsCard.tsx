@@ -9,7 +9,7 @@ import {TProduct} from "../../utils/types";
 
 const IngredientsCard : FC<TProduct> = (product) => {
   const dispatch = useDispatch();
-  const {current, image, price, name, type} = product;
+  const {current, image, price, name} = product;
   const navigate = useNavigate();
 
   const [, dragRef] = useDrag({

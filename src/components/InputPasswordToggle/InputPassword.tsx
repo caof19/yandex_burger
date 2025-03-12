@@ -1,5 +1,5 @@
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useState, forwardRef, ChangeEvent} from "react";
+import React, {useState, forwardRef} from "react";
 import { TICons } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
 type InputPasswordToggleProps = Omit<
@@ -37,8 +37,6 @@ const InputPasswordToggle = forwardRef<
             extraClass="mb-6"
             required
             ref={ref}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
             value={value}
             {...props}
             onChange={onChange}

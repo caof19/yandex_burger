@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import {BASE_URL} from "../utils/const";
 import {checkResponse} from "../utils/network";
-import {TProduct} from "../utils/types";
 
 
 const initialState = {
@@ -14,13 +13,13 @@ export const OrderDetailsSlice = createSlice({
     name: 'OrderDetails',
     initialState,
     reducers: {
-        closeOrderModal: (state, action) => {
+        closeOrderModal: (state) => {
             state.modalInfo = initialState.modalInfo
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchOrder.pending, (state) => {
+            .addCase(fetchOrder.pending, () => {
 
             })
             .addCase(fetchOrder.fulfilled, (state, action) => {
@@ -32,7 +31,7 @@ export const OrderDetailsSlice = createSlice({
 
 
             })
-            .addCase(fetchOrder.rejected, (state, action) => {
+            .addCase(fetchOrder.rejected, () => {
 
             });
     },
