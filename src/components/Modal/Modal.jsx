@@ -4,14 +4,10 @@ import {useEffect} from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import ModalOverlay from "../ModalOverlay/ModalOverlay.jsx";
-import { useSelector, useDispatch } from 'react-redux';
-import {closeModal} from "../../services/IngredientDetailsSlice.js";
-import {closeOrderModal} from "../../services/OrderDetailsSlice.js";
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({children, onCloseModal}) => {
-
+const Modal = ({children, onCloseModal, hideClose, hideOverlay}) => {
 
   useEffect(() => {
     const handleEscPress = (e) => {
@@ -28,12 +24,12 @@ const Modal = ({children, onCloseModal}) => {
   }, [onCloseModal]);
 
   return ReactDOM.createPortal(
-      <div className={style.modal}>
-        <ModalOverlay closeCallback={onCloseModal}/>
-        <div className={style.body}>
-          <div className={style.close} onClick={onCloseModal}>
+      <div className={style.modal + ' ' + (hideOverlay ? style.modal_clear : '')}>
+        {!hideOverlay && <ModalOverlay closeCallback={onCloseModal}/>}
+        <div className={style.body + ' ' + (hideOverlay ? style.body_clear : '')}>
+          {!hideClose && <div className={style.close} onClick={onCloseModal}>
             <CloseIcon type="primary"/>
-          </div>
+          </div>}
           {children}
         </div>
       </div>
@@ -44,6 +40,6 @@ const Modal = ({children, onCloseModal}) => {
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
-  onCloseModal: PropTypes.func.isRequired,
+  onCloseModal: PropTypes.func,
 }
 export default Modal;

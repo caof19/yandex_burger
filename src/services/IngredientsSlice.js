@@ -81,6 +81,6 @@ export const fetchIngredients = createAsyncThunk(
   }
 )
 
-export const {useIngredient, unUseIngredient, resetIngredient, resetAllIngredients} = IngredientsSlice.actions;
+export const {useIngredient, unUseIngredient, resetIngredient,  resetAllIngredients} = IngredientsSlice.actions;
 
 export default IngredientsSlice.reducer;

@@ -45,6 +45,7 @@ export const fetchOrder = createAsyncThunk(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': localStorage.getItem('accessToken'),
         },
         body: JSON.stringify(orderData),
       }).then(checkResponse);

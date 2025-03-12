@@ -9,6 +9,10 @@
   justify-content: center;
   transition: all .5s;
   z-index: 5;
+  &_clear {
+    position: static;
+    flex: 1;
+  }
 }
 .body {
   position: relative;
@@ -18,6 +22,9 @@
   border-radius: 40px;
   padding: 40px;
   padding-bottom: 60px;
+  &_clear {
+    background-color: transparent;
+  }
 }
 .close {
   width: 24px;
