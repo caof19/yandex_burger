@@ -6,6 +6,10 @@ import Ingredients from './IngredientsSlice';
 import IngredientsDetails from './IngredientDetailsSlice';
 import OrderDetails from './OrderDetailsSlice';
 import UserDetails from './UserSlice';
+import FeedSlice from "./FeedSlice";
+import FeedDetail from "./FeedDetailSlice";
+import Orders from "./OrderSlice.ts";
+
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +17,10 @@ export const store = configureStore({
     Ingredients,
     IngredientsDetails,
     OrderDetails,
-    UserDetails
+    UserDetails,
+    FeedSlice,
+    FeedDetail,
+    Orders
   },
 })
 
