@@ -164,16 +164,12 @@ export type TOrderInfo = {
     ingredients: TOrderIngredients[],
 }
 
-export type TOrderInfoDate = Omit<TOrderInfo, 'date'> & {date: Date}
-
 export type TFeed = {
-    orders: {
-        total: number,
-        today: number,
-        info: TOrderInfo[] | TOrderInfoDate[]
-    },
-    successId: number[],
-    inProgressId: number[],
+    ordersList: TOrderInfo[],
+    total?: number,
+    today?: number,
+    successId?: number[],
+    inProgressId?: number[],
 }
 
 export type TFeedDetail = {

@@ -4,12 +4,11 @@ import {Link} from "react-router-dom";
 import {fetchUnAuth} from "../../services/UserSlice";
 import InputPassword from "../../components/InputPasswordToggle/InputPassword";
 import {useRef, useState, FormEvent} from "react";
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {PAGE_URI} from "../../utils/const";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import {setLastURL} from "../../services/UserSlice";
-import {RootState, useAppDispatch} from "../../services/store";
+import {useAppDispatch, useAppSelector} from "../../services/store";
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -21,7 +20,7 @@ export default function Login() {
   const inputEmailRef = useRef(null)
   const inputPassRef = useRef(null)
 
-  const {lastURL} = useSelector((state: RootState) => state.UserDetails.info);
+  const {lastURL} = useAppSelector(state => state.UserDetails.info);
 
   const submitHandler = async (e:FormEvent) => {
     e.preventDefault();

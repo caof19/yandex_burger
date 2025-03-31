@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './FeedDetail.module.less';
-import {useSelector} from "react-redux";
-import {RootState, useAppDispatch} from "../../services/store";
+import {useAppDispatch, useAppSelector} from "../../services/store";
 import {useParams} from "react-router-dom";
 import {fetchOrder, setFormatedIngredients} from "../../services/FeedDetailSlice";
 import {fetchIngredients} from "../../services/IngredientsSlice.ts";
@@ -21,8 +20,8 @@ const FeedDetail = () => {
         ingredients,
         date,
         formatIngredients
-    } = useSelector(((state: RootState) => state.FeedDetail.info))
-    const items = useSelector((state: RootState) => state.Ingredients.ingredients)
+    } = useAppSelector((state => state.FeedDetail.info))
+    const items = useAppSelector(state => state.Ingredients.ingredients)
 
 
     useEffect(() => {

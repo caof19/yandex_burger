@@ -1,94 +1,74 @@
-import { useCallback, useEffect, useRef } from 'react';
+import {Middleware} from '@reduxjs/toolkit';
+import {getSuccessIds, getInProgressIds, formatOrders} from "./functions";
 
-export const CONNECTING: 'CONNECTING' = 'CONNECTING';
-export const OPEN: 'OPEN' = 'OPEN';
-export const CLOSING: 'CLOSING' = 'CLOSING';
-export const CLOSED: 'CLOSED' = 'CLOSED';
-
-export const socketStates = {
-  0: CONNECTING,
-  1: OPEN,
-  2: CLOSING,
-  3: CLOSED
+export type WSActionTypes = {
+    connect: string;
+    disconnect: string;
+    onMessage: string;
 };
 
-interface IWSOptions {
-  onMessage: (event: MessageEvent<string>) => void
-
-  onConnect?: (event: Event) => void;
-  onError?: (event: Event) => void;
-  onDisconnect?: (event: Event) => void;
+interface WSAction<T = any> {
+    type: string;
+    payload?: T;
 }
 
-export const useSocket = (url: string, options: IWSOptions) => {
-  const ws = useRef<WebSocket | null>(null);
+interface ConnectActionPayload {
+    url: string;
+    token?: string;
+}
 
-  const connect = useCallback(
-    (token: string = '') => {
-      if(token) {
-          ws.current = new WebSocket(`${url}?token=${token}`);
-      } else {
-          ws.current = new WebSocket(`${url}`);
-      }
+export const createSocketMiddleware = (actions: WSActionTypes): Middleware => {
+    return store => {
+        let socket: WebSocket | null = null;
 
-      ws.current.onmessage = options.onMessage;
+        return next => action => {
+            const {dispatch, getState} = store;
 
-      ws.current.onopen = (event: Event) => {
-        if (typeof options.onConnect === 'function') {
-          options.onConnect(event);
-        }
-      };
+            // Connect
+            if (!action || typeof action !== 'object' || !('type' in action)) {
+                return next(action as never);
+            }
 
-      ws.current.onerror = (event: Event) => {
-        if (typeof options.onError === 'function') {
-          options.onError(event);
-        }
-      };
+            const wsAction = action as WSAction;
+            if (wsAction.type === actions.connect && !socket) {
+                if (!wsAction.payload) {
+                    console.error('Payload is required for connect action');
+                    return next(wsAction);
+                }
 
-      ws.current.onclose = (event: Event) => {
-        if (typeof options.onDisconnect === 'function') {
-          options.onDisconnect(event);
-        }
-      };
-    },
-    [url, options]
-  );
+                // Добавляем проверку типа для payload
+                const payload = wsAction.payload as ConnectActionPayload;
+                const {url, token} = payload;
+                const wsUrl = token ? `${url}?token=${token}` : url;
 
-  useEffect(
-    () => {
-      if (ws.current) {
-        ws.current.onmessage = options.onMessage;
+                socket = new WebSocket(wsUrl);
 
-        if (typeof options.onConnect === 'function') {
-          ws.current.onopen = options.onConnect;
-        }
-        if (typeof options.onError === 'function') {
-          ws.current.onerror = options.onError;
-        }
-        if (typeof options.onDisconnect === 'function') {
-          ws.current.onclose = options.onDisconnect;
-        }
-      }
-    },
-    [options, ws]
-  );
 
-  useEffect(() => {
-    return () => {
-      if (ws.current && typeof ws.current.close === 'function') {
-        ws.current.close();
-      }
+                socket.onmessage = (event) => {
+                    try {
+                        const {total, totalToday, orders} = JSON.parse(event.data);
+                        const {ingredients} = getState().Ingredients;
+
+                        const processData = {
+                            total,
+                            today: totalToday,
+                            successId: getSuccessIds(orders),
+                            inProgressId: getInProgressIds(orders),
+                            orders: formatOrders(orders, ingredients)
+                        }
+                        dispatch({type: actions.onMessage, payload: processData});
+                    } catch (error) {
+                        console.error('WS message parse error:', error);
+                    }
+                };
+            }
+
+            // Disconnect
+            if (action.type === actions.disconnect && socket) {
+                socket.close();
+            }
+
+            return next(action);
+        };
     };
-  }, []);
-
-  const sendData = useCallback(
-    (message: object) => {
-      if (ws.current) {
-        ws.current.send(JSON.stringify(message));
-      }
-    },
-    [ws]
-  );
-
-  return { connect, sendData };
 };

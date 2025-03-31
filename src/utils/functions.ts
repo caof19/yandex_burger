@@ -16,7 +16,7 @@ export const formatOrders = (orders: TOrderInfo[], ingredients: TProduct[]) => {
             }
         })
 
-         switch (item.status) {
+        switch (item.status) {
             case 'created':
                 statusRus = 'Создан'
                 break;
@@ -35,6 +35,21 @@ export const formatOrders = (orders: TOrderInfo[], ingredients: TProduct[]) => {
             date: item.createdAt,
             ingredients: neddleIngredients,
             status: statusRus,
+        }
+    })
+}
+
+export const getSuccessIds = (orders: TOrderInfo[]) => {
+    return filterIds(orders, 'done')
+}
+export const getInProgressIds = (orders: TOrderInfo[]) => {
+    return filterIds(orders, 'pending')
+}
+
+const filterIds = (orders: TOrderInfo[], status: string) => {
+    return orders.map((item: TOrderInfo) => {
+        if (item.status === status) {
+            return item.number;
         }
     })
 }

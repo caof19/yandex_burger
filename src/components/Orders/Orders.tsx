@@ -3,23 +3,19 @@ import style from "../../pages/profile/index.module.less";
 import {NavLink, useNavigate} from "react-router-dom";
 import {PAGE_URI} from "../../utils/const.ts";
 import {fetchExit} from "../../services/UserSlice.ts";
-import {RootState, useAppDispatch} from "../../services/store.ts";
-import {useSocket} from "../../utils/useSocket.ts";
+import {useAppDispatch, useAppSelector} from "../../services/store.ts";
 import {useEffect} from "react";
-import {formatOrders} from "../../utils/functions"
-import {useSelector} from "react-redux";
-import {setOrdersInfo} from "../../services/OrderSlice";
 import OrdersCard from "../OrdersCard/OrdersCard";
 import {fetchIngredients} from "../../services/IngredientsSlice.ts";
+import {connect, disconnect} from "../../services/HistoryListSlice.ts";
 
 
 const Orders = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const {ingredients} = useSelector((state: RootState) => state.Ingredients)
 
-    const {orders} = useSelector((state:RootState) => state.Orders)
+    const {ordersList} = useAppSelector((state => state.HistoryList))
     const exitClick = async () => {
 
         const result = await dispatch(fetchExit());
@@ -31,20 +27,21 @@ const Orders = () => {
         }
     }
 
-    const ws = useSocket('wss://norma.nomoreparties.space/orders', {
-        onMessage: msg => {
-            const {orders} = JSON.parse(msg.data)
-
-            dispatch(setOrdersInfo({orders: formatOrders(orders.reverse(), ingredients)}))
-        }
-    });
-
     useEffect(() => {
         dispatch(fetchIngredients());
         const token = localStorage.getItem('accessToken');
-        if(token) {
-            ws.connect(token.replace('Bearer ', ''))
+        if (token) {
+            dispatch(connect(
+                {
+                    url: 'wss://norma.nomoreparties.space/orders/all',
+                    token: token.replace('Bearer ', ''),
+                }
+            ))
         }
+
+        return () => {
+            dispatch(disconnect());
+        };
 
     }, []);
 
@@ -78,7 +75,7 @@ const Orders = () => {
                         </div>
                         <div className="profile__wrap">
                             {
-                                orders && orders.map(item => {
+                                ordersList && ordersList.map(item => {
                                     return (
                                         <OrdersCard
                                             key={item.number}

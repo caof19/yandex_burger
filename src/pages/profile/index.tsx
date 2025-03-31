@@ -3,10 +3,9 @@ import {PAGE_URI} from "../../utils/const";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useEffect, useRef, useState, FormEvent, RefObject, LegacyRef} from "react";
 import style from './index.module.less'
-import {useSelector} from "react-redux";
 import {fetchExit, fetchWithTokenRefresh} from "../../services/UserSlice";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
-import {RootState, useAppDispatch} from "../../services/store";
+import {useAppDispatch, useAppSelector} from "../../services/store";
 import {UserData, UserDataField} from "../../utils/types";
 
 const Profile = () => {
@@ -39,7 +38,7 @@ const Profile = () => {
     }
   }, [])
 
-  const {info} = useSelector((state:RootState) => state.UserDetails);
+  const {info} = useAppSelector(state => state.UserDetails);
   useEffect(() => {
     const defaultData : UserData = {
       email: {
