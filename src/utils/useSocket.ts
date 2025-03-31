@@ -30,7 +30,7 @@ export const createSocketMiddleware = (actions: WSActionTypes): Middleware => {
             }
 
             const wsAction = action as WSAction;
-            if (wsAction.type === actions.connect && !socket) {
+            if (wsAction.type === actions.connect) {
                 if (!wsAction.payload) {
                     console.error('Payload is required for connect action');
                     return next(wsAction);
