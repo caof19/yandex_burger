@@ -1,13 +1,13 @@
 import {FC, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {PAGE_URI} from "../utils/const";
-import {useDispatch} from "react-redux";
 import {setLastURL} from "../services/UserSlice";
 import {TProtectedArgument} from "../utils/types";
+import {useAppDispatch} from "../services/store.ts";
 
 const ProtectedRouteElement: FC<TProtectedArgument> = ({onlyAuth, onlyUnAuth, element}) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const userStatus = !!localStorage.getItem("accessToken");

@@ -1,15 +1,14 @@
 import style from './IngredientDetails.module.less';
-import { useSelector } from 'react-redux';
 import {useEffect} from "react";
 import {fetchIngredients} from "../../services/IngredientsSlice";
 import {loadData} from "../../services/IngredientDetailsSlice";
 import {useLocation, useParams} from "react-router-dom";
-import {RootState, useAppDispatch} from "../../services/store";
+import { useAppDispatch, useAppSelector} from "../../services/store";
 import {TProduct} from "../../utils/types";
 
 const IngredientDetails = () => {
-  const {img, name, info} = useSelector((state:RootState) => state.IngredientsDetails.modalInfo)
-  const {ingredients} = useSelector((state:RootState) => state.Ingredients);
+  const {img, name, info} = useAppSelector(state => state.IngredientsDetails.modalInfo)
+  const {ingredients} = useAppSelector(state => state.Ingredients);
   const {id} = useParams();
   const location = useLocation();
   const showIngredientInModal = !!(location.state && location.state.showInModal);

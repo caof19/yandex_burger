@@ -1,14 +1,14 @@
 import style from './IngredientsCard.module.less';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux'
 import { openModal } from "../../services/IngredientDetailsSlice";
 import { useDrag } from "react-dnd";
 import {useNavigate} from "react-router-dom";
 import {FC} from "react";
 import {TProduct} from "../../utils/types";
+import {useAppDispatch} from "../../services/store.ts";
 
 const IngredientsCard : FC<TProduct> = (product) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {current, image, price, name} = product;
   const navigate = useNavigate();
 

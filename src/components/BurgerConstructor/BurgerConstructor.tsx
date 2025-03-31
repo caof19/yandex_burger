@@ -2,19 +2,18 @@ import AssembleCard from '../AssembleCard/AssembleCard'
 import style from './BurgerConstructor.module.less'
 import AssembleTotal from "../AssembleTotal/AssembleTotal";
 import {useEffect, useState} from "react";
-import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import {addIngredientToMenu, changeBun} from "../../services/BurgerConstructorSlice";
 import {useIngredient, resetIngredient} from "../../services/IngredientsSlice";
 import {nanoid} from "@reduxjs/toolkit";
-import {RootState} from "../../services/store";
+import {useAppDispatch, useAppSelector} from "../../services/store";
 import {TProduct} from "../../utils/types";
 
 
 const BurgerConstructor = () => {
-  const bun = useSelector((state: RootState) => state.BurgerConstructor.bun);
-  const ingredients = useSelector((state: RootState) => state.BurgerConstructor.main);
-  const dispatch = useDispatch();
+  const bun = useAppSelector(state => state.BurgerConstructor.bun);
+  const ingredients = useAppSelector(state => state.BurgerConstructor.main);
+  const dispatch = useAppDispatch();
 
 
   const [cart, setCart] = useState<TProduct[]>([]);
@@ -52,10 +51,12 @@ const BurgerConstructor = () => {
     topBun.locked = true;
     topBun.type = 'top';
     topBun.mainId = nanoid();
+    topBun.name += ' (верх)'
 
     bothBun.locked = true;
     bothBun.type = 'bottom';
     bothBun.mainId = nanoid();
+    bothBun.name += ' (низ)'
 
     setCart([
       {...topBun},

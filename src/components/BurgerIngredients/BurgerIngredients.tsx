@@ -2,9 +2,8 @@ import IngredientsNav from '../IngredientsNav/IngredientsNav';
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 import styles from "./BurgerIngredients.module.less";
 import {useEffect, useRef, useState} from "react";
-import { useSelector } from 'react-redux'
 import {fetchIngredients} from "../../services/IngredientsSlice";
-import {RootState, useAppDispatch} from "../../services/store";
+import {useAppDispatch, useAppSelector} from "../../services/store";
 import {TBurgerIngredients} from "../../utils/types";
 
 const BurgerIngredients = () => {
@@ -23,7 +22,7 @@ const BurgerIngredients = () => {
   /* состояние для ингредиентов */
   /* состояние, потому что нужно отслеживать добавленные ингредиенты */
 
-  const {ingredients} = useSelector((state:RootState) => state.Ingredients)
+  const {ingredients} = useAppSelector(state => state.Ingredients)
   const [formatedIngredients, setFormatedIngredients] = useState<Record<string, TBurgerIngredients>>({});
   const scrollableContainer = useRef<HTMLDivElement>(null);
 

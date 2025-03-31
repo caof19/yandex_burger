@@ -76,9 +76,16 @@ export const IngredientsSlice = createSlice({
 
 export const fetchIngredients = createAsyncThunk(
     'Ingredients/fetchIngredients',
-    async (_, {rejectWithValue}) => {
+    async (_, {rejectWithValue, getState}) => {
         try {
-            return await fetch(BASE_URL + "/ingredients").then(checkResponse);
+
+            const state = getState() as { Ingredients: TIngredients };
+
+            if (state.Ingredients.ingredients.length > 0) {
+                return {data: state.Ingredients.ingredients};
+            } else {
+                return await fetch(BASE_URL + "/ingredients").then(checkResponse);
+            }
 
         } catch (error) {
             if (error instanceof Error) {

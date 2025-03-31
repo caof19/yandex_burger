@@ -5,14 +5,14 @@ import {
     reorderIngredients
 } from "../../services/BurgerConstructorSlice";
 import {unUseIngredient} from "../../services/IngredientsSlice";
-import {useDispatch} from 'react-redux'
 import {useDrag, useDrop} from "react-dnd";
 import {TProduct} from "../../utils/types";
 import {FC} from "react";
+import {useAppDispatch} from "../../services/store.ts";
 
 const AssembleCard: FC<TProduct> = (props) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const deleteFromCart = (id: string) => {
         dispatch(removeIngredient({id}))
