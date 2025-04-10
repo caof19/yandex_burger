@@ -146,3 +146,43 @@ export type UserInfo = {
   email: string;
   lastURL?: string;
 }
+
+export type TOrderIngredients = {
+    _id?: string,
+    price: number,
+    img: string,
+    count?: number
+    name?: string,
+}
+export type TOrderInfo = {
+    _id?: string,
+    status?: string,
+    createdAt: string,
+    number: number,
+    name: string,
+    date: string,
+    ingredients: TOrderIngredients[],
+}
+
+export type TFeed = {
+    ordersList: TOrderInfo[],
+    total?: number,
+    today?: number,
+    successId?: number[],
+    inProgressId?: number[],
+}
+
+export type TFeedDetail = {
+    info: {
+        number: number,
+        name: string,
+        status: string,
+        date: string,
+        ingredients: string[],
+        formatIngredients?: TOrderIngredients[],
+    }
+}
+
+export type TOrders = {
+    orders: TOrderInfo[] | undefined,
+}

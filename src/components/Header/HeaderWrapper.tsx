@@ -14,8 +14,8 @@ const HeaderWrapper = () => {
           {
             icon: 'list',
             name: 'Лента заказов',
-            isActive: false,
-            href: '/list'
+            isActive: true,
+            href: '/feed'
           }
         ]
       }/>
