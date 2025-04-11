@@ -3,7 +3,7 @@ import {BASE_URL} from "../utils/const";
 import {checkResponse} from "../utils/network";
 
 
-const initialState = {
+export const initialState = {
     modalInfo: {
         isActiveOrderDetail: false,
         orderNum: 0,

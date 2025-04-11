@@ -5,7 +5,7 @@ import {setupUser} from "../utils/user";
 import {FetchArgs, IAuth, IUnAuth, TUser} from "../utils/types";
 
 
-const initialState: TUser = {
+export const initialState: TUser = {
     info: {
         name: '',
         email: '',

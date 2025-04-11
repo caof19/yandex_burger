@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 import {ModalInfo} from "../utils/types";
 
 
-const initialState: ModalInfo = {
+export const initialState: ModalInfo = {
     modalInfo: {
         isActiveIngredients: false,
         img: '',

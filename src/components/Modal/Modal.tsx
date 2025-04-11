@@ -31,7 +31,7 @@ const Modal : FC<TModal> = ({children, onCloseModal, hideClose, hideOverlay})=> 
       <div className={style.modal + ' ' + (hideOverlay ? style.modal_clear : '')}>
         {!hideOverlay && onCloseModal && <ModalOverlay closeCallback={onCloseModal}/>}
         <div className={style.body + ' ' + (hideOverlay ? style.body_clear : '')}>
-          {!hideClose && <div className={style.close} onClick={onCloseModal}>
+          {!hideClose && <div className={style.close} onClick={onCloseModal} data-close-modal="">
             <CloseIcon type="primary"/>
           </div>}
           {children}

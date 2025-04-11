@@ -23,7 +23,7 @@ const IngredientsCard : FC<TProduct> = (product) => {
   }
 
   return (
-    <div className={style.item} ref={dragRef}>
+    <div className={style.item} ref={dragRef} data-ingredient="">
       <div className="wrapper" onClick={cardClick}>
         {!!current && current > 0 && (
             <div className={"text text_type_digits-default " + style.current}>

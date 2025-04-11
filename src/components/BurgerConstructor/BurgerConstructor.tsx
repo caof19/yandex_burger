@@ -75,7 +75,7 @@ const BurgerConstructor = () => {
   }, [cart]);
 
   return (
-    <div className={style.assemble} ref={dropTarget}>
+    <div className={style.assemble} ref={dropTarget} data-assambler="">
       <div className={style.list}>
         {cart.length > 0 && cart.map((item:TProduct, index) => (
             <AssembleCard
