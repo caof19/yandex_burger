@@ -51,5 +51,5 @@ const HistoryList = createSlice({
     },
 });
 
-export const {connect, disconnect} = HistoryList.actions;
+export const {connect, disconnect, onMessage} = HistoryList.actions;
 export default HistoryList.reducer;
