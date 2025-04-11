@@ -1,21 +1,7 @@
-import {TUser} from "../utils/types.ts";
-import UserSlice, {fetchExit, fetchWithTokenRefresh, setLastURL} from './UserSlice'
+import UserSlice, {fetchExit, fetchWithTokenRefresh, setLastURL, initialState} from './UserSlice'
 import {mockUser} from "../utils/mockData.ts";
 
 describe('Тестирования слайса данных пользователя', () => {
-    const initialState: TUser = {
-        info: {
-            name: '',
-            email: '',
-            lastURL: '',
-        },
-        tokens: {
-            accessToken: '',
-            refreshToken: '',
-        }
-    };
-
-
     it('Должен вернуть начальное состояние', () => {
         expect(UserSlice(undefined, { type: 'unknown' })).toEqual(initialState)
     })

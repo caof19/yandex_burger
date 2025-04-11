@@ -1,13 +1,6 @@
-import OrderDetailsSlice, {closeOrderModal, fetchOrder} from './OrderDetailsSlice';
+import OrderDetailsSlice, {closeOrderModal, fetchOrder, initialState} from './OrderDetailsSlice';
 
 describe('Тестирования слайса модального окна готового заказ', () => {
-    const initialState = {
-        modalInfo: {
-            isActiveOrderDetail: false,
-            orderNum: 0,
-        }
-    };
-
     it('Должен вернуть начальное состояние', () => {
         expect(OrderDetailsSlice(undefined, { type: 'unknown' })).toEqual(initialState)
     })

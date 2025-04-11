@@ -1,22 +1,8 @@
 import {ModalInfo} from "../utils/types.ts";
-import IngredientDetailsSlice, {closeModal, loadData, openModal} from './IngredientDetailsSlice';
+import IngredientDetailsSlice, {closeModal, loadData, openModal, initialState} from './IngredientDetailsSlice';
 import {mockModalIngredient} from "../utils/mockData.ts";
 
 describe('Тестирования слайса модального окна ингредиента', () => {
-    const initialState: ModalInfo = {
-        modalInfo: {
-            isActiveIngredients: false,
-            img: '',
-            name: '',
-            info: {
-                calories: '',
-                proteins: '',
-                fat: '',
-                carbohydrates: ''
-            }
-        }
-    };
-
     it('Должен вернуть начальное состояние', () => {
         expect(IngredientDetailsSlice(undefined, { type: 'unknown' })).toEqual(initialState)
     })

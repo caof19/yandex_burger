@@ -8,7 +8,7 @@ export const chatWSActions = {
 };
 
 
-const initialState: TFeed = {
+export const initialState: TFeed = {
     total: 0,
     today: 0,
     ordersList: [

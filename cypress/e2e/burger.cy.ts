@@ -11,7 +11,7 @@ describe('Тестирование конструктора', () => {
         cy.intercept('GET', '/api/ingredients', {fixture: 'ingredients.json'}).as('setIngredients');
         window.localStorage.setItem('accessToken', 'token');
 
-        cy.visit('http://localhost:5173/')
+        cy.visit('/')
     })
 
     it('Должен отображать главную страницу', () => {

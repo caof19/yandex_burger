@@ -3,20 +3,15 @@ import ingredientReducer, {
     resetAllIngredients,
     resetIngredient,
     unUseIngredient,
-    useIngredient
+    useIngredient,
+    initialState
 } from './IngredientsSlice';
 import {mockIngredient} from '../utils/mockData';
 
 describe('Тестирования слайса ингредиентов', () => {
 
-    const mockInitialState = {
-        isLoad: false,
-        isError: false,
-        ingredients: [],
-    }
-
     it('Должен вернуть начальное состояние', () => {
-        expect(ingredientReducer(undefined, { type: 'unknown' })).toEqual(mockInitialState)
+        expect(ingredientReducer(undefined, { type: 'unknown' })).toEqual(initialState)
     })
 
     it('Должен вернуть ингредиенты и обновить стейт', async () => {
@@ -26,7 +21,7 @@ describe('Тестирования слайса ингредиентов', () =>
             payload: {data: mockIngredient}
         }
 
-        const result = ingredientReducer(mockInitialState, action);
+        const result = ingredientReducer(initialState, action);
 
         expect(result.ingredients).toEqual(mockIngredient);
     });

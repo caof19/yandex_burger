@@ -3,7 +3,7 @@ import {BASE_URL} from "../utils/const";
 import {checkResponse} from "../utils/network";
 import {TIngredients} from "../utils/types";
 
-const initialState : TIngredients = {
+export const initialState : TIngredients = {
     isLoad: false,
     isError: false,
     ingredients: [],

@@ -1,28 +1,13 @@
-import {TBurgerConstructor} from "../utils/types.ts";
 import BurgerConstructorReducer, {
     addIngredientToMenu,
     changeBun, clearCart,
     removeIngredient,
-    reorderIngredients
+    reorderIngredients,
+    initialState
 } from "./BurgerConstructorSlice.ts";
 import {bunMock, mockIngredient} from "../utils/mockData.ts";
 
 describe('Тестирования слайса конструктора', () => {
-
-    const initialState: TBurgerConstructor = {
-        main: [],
-        bun: {
-            text: '',
-            thumbnail: '',
-            price: 0,
-            type: 'bun',
-            isLocked: true,
-            mainId: '',
-            ingredientsIndex: 0,
-            id: '',
-            _id: '',
-        }
-    }
 
     it('Должен вернуть начальное состояние', () => {
         expect(BurgerConstructorReducer(undefined, { type: 'unknown' })).toEqual(initialState)
