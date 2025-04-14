@@ -2,7 +2,7 @@ import {createSlice, nanoid, PayloadAction} from '@reduxjs/toolkit'
 import {TBurgerConstructor, TProduct} from "../utils/types";
 
 
-const initialState: TBurgerConstructor = {
+export const initialState: TBurgerConstructor = {
     main: [],
     bun: {
         text: '',

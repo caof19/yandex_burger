@@ -8,7 +8,7 @@ export const chatWSActions = {
 };
 
 
-const initialState: TFeed = {
+export const initialState: TFeed = {
     total: 0,
     today: 0,
     ordersList: [
@@ -51,5 +51,5 @@ const HistoryList = createSlice({
     },
 });
 
-export const {connect, disconnect} = HistoryList.actions;
+export const {connect, disconnect, onMessage} = HistoryList.actions;
 export default HistoryList.reducer;

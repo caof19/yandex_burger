@@ -45,7 +45,7 @@ const AssembleTotal: FC<{totalPrice:number}> = ({totalPrice}) => {
         <span className="text text_type_digits-medium">{!isNaN(totalPrice) && totalPrice}</span>
         <CurrencyIcon type="primary"/>
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={toggleOrderShow}>
+      <Button htmlType="button" type="primary" size="large" onClick={toggleOrderShow} data-order-btn="">
         Оформить заказ
       </Button>
     </div>

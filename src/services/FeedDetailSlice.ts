@@ -3,7 +3,7 @@ import {TFeedDetail} from "../utils/types.ts";
 import {BASE_URL} from "../utils/const.ts";
 import {checkResponse} from "../utils/network.ts";
 
-const initialState: TFeedDetail = {
+export const initialState: TFeedDetail = {
     info: {
         number: 0,
         name: '',

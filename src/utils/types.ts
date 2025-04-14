@@ -186,3 +186,12 @@ export type TFeedDetail = {
 export type TOrders = {
     orders: TOrderInfo[] | undefined,
 }
+
+export type TFetchIngredientModal = {
+    image_large: string,
+    name: string,
+    calories: number,
+    proteins: number,
+    fat: number,
+    carbohydrates: number,
+}
